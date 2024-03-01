@@ -9,4 +9,9 @@
  * Date: 2/28/2024
  */
 
-phpinfo();
+use Ramsey\Uuid\UuidFactory;
+
+require __DIR__ . '/../vendor/autoload.php';
+
+$uuidFactory = new UuidFactory();
+echo $uuidFactory->uuid4();
