@@ -9,6 +9,3 @@ RUN docker-php-ext-install mysqli pdo pdo_mysql
 # Install Composer
 #COPY --from=composer:latest /usr/bin/composer /usr/local/bin/composer
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
-
-# Copy your Apache configuration files
-COPY ./apache/auctionpromax-default.conf /etc/apache2/sites-available/000-default.conf

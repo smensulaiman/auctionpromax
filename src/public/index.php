@@ -9,9 +9,19 @@
  * Date: 2/28/2024
  */
 
-use Ramsey\Uuid\UuidFactory;
+declare(strict_types=1);
+
 
 require __DIR__ . '/../vendor/autoload.php';
 
-$uuidFactory = new UuidFactory();
-echo $uuidFactory->uuid4();
+$route = new \App\Router();
+
+//$router->register("/", function (){
+//   echo "Home";
+//});
+//
+//$router->register("/invoice", function (){
+//   echo "Invoices";
+//});
+
+//echo $router->resolve($_SERVER['REQUEST_URI']);
