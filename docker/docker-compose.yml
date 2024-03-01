@@ -10,16 +10,17 @@ services:
     working_dir: /var/www/html/auctionpromax
     volumes:
       - ../src:/var/www/html/auctionpromax
+    depends_on:
+      - apache
 
   apache:
     build:
       context: ./apache
       dockerfile: Dockerfile
     container_name: auctionpromax-apache
+    restart: always
     ports:
       - "8081:80"
     volumes:
       - ../src:/var/www/html/auctionpromax
       - ./apache/auctionpromax-default.conf:/etc/apache2/sites-available/000-default.conf
-    depends_on:
-      - app
