@@ -10,18 +10,21 @@
  */
 
 declare(strict_types=1);
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
 
+use App\controllers\HomeController;
+use App\Exception\RouteNotFoundException;
+use App\Router;
 
 require __DIR__ . '/../vendor/autoload.php';
 
-$route = new \App\Router();
+$router = new Router();
 
-//$router->register("/", function (){
-//   echo "Home";
-//});
-//
-//$router->register("/invoice", function (){
-//   echo "Invoices";
-//});
+$router->register("/", [HomeController::class, 'index']);
 
-//echo $router->resolve($_SERVER['REQUEST_URI']);
+try {
+    echo $router->resolve($_SERVER['REQUEST_URI']);
+} catch (RouteNotFoundException $e) {
+    echo $e->getMessage();
+}
