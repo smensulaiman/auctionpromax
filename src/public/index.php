@@ -19,6 +19,8 @@ use App\Router;
 
 require __DIR__ . '/../vendor/autoload.php';
 
+const VIEW_PATH = __DIR__ . '/../views';
+
 $router = new Router();
 
 $router->register("/", [HomeController::class, 'index']);
