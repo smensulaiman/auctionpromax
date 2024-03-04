@@ -2,25 +2,25 @@ version: '3.8'
 
 services:
   app:
+    container_name: auctionpromax-app
     build:
       context: ./
       dockerfile: Dockerfile
-    container_name: auctionpromax-app
-    restart: always
-    working_dir: /var/www/html/auctionpromax
-    volumes:
-      - ../src:/var/www/html/auctionpromax
-
-  apache:
-    build:
-      context: ./apache
-      dockerfile: Dockerfile
-    container_name: auctionpromax-apache
     restart: always
     ports:
       - "8081:80"
+    working_dir: /var/www/html/auctionpromax
     volumes:
       - ../src:/var/www/html/auctionpromax
       - ./apache/auctionpromax-default.conf:/etc/apache2/sites-available/000-default.conf
-    depends_on:
-      - app
+
+  db:
+    container_name: auctionpromax-db
+    image: mysql:8.0
+    volumes:
+      - ./storage/mysql:/var/lib/mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+    ports:
+      - "3306:3306"
