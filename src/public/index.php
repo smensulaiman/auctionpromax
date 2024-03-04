@@ -11,22 +11,28 @@
 
 declare(strict_types=1);
 error_reporting(E_ALL);
-ini_set('display_errors', 1);
+ini_set('display_errors', "1");
 
+use App\Application;
 use App\controllers\HomeController;
 use App\Exception\RouteNotFoundException;
 use App\Router;
 
 require __DIR__ . '/../vendor/autoload.php';
 
+$dotenv = Dotenv\Dotenv::createImmutable(dirname(__DIR__));
+$dotenv->load();
+
 const VIEW_PATH = __DIR__ . '/../views';
 
 $router = new Router();
 
-$router->register("/", [HomeController::class, 'index']);
+$router->get("/", [HomeController::class, 'index']);
 
 try {
-    echo $router->resolve($_SERVER['REQUEST_URI']);
+    (new Application($router))->run();
 } catch (RouteNotFoundException $e) {
-    echo $e->getMessage();
+    echo "<pre>";
+    print_r($e->getTrace());
+    echo "<pre>";
 }

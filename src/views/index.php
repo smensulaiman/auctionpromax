@@ -1,11 +1,10 @@
-<?php
-/**
- * Author: SULAIMAN
- * Email: sulaiman@sendajapan.com
- * Website: https://www.sulaimansan.com
- *
- * Description: Brief description of the code or file.
- *
- * Date: 3/1/2024
- */
-echo "Home";
+<html>
+<head>
+    <title>Title</title>
+</head>
+
+<body>
+    <h1><?= $this->Author ?></h1>
+</body>
+
+</html>
