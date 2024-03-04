@@ -1,5 +1,5 @@
 composer.phar
-/vendor/
+src/vendor/
 
 # docker
 /docker/storage
