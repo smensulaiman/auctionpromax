@@ -5,14 +5,16 @@ declare(strict_types=1);
 namespace App\Controllers;
 
 
-use App\Attributes\Route;
+use App\Attributes\Get;
+use App\Attributes\Post;
+use App\Attributes\Put;
 use App\Models\User;
 use App\View;
 use PDOException;
 
 class HomeController
 {
-    #[Route('/', 'get')]
+    #[Get(routePath:'/')]
     public function index(): View
     {
         try {
@@ -23,6 +25,16 @@ class HomeController
         } catch (PDOException $ex) {
             throw new PDOException($ex->getMessage(), $ex->getCode());
         }
+    }
+
+    #[Post('/')]
+    public function store(){
+
+    }
+
+    #[Put('/')]
+    public function update(){
+
     }
 
 }

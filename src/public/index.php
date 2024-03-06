@@ -27,6 +27,7 @@ $dotenv->load();
 const VIEW_PATH = __DIR__ . '/../views';
 
 $router = new Router();
+
 try {
     $router->registerRoutesFromControllerAttributes([
         HomeController::class
