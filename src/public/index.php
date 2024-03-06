@@ -27,10 +27,14 @@ $dotenv->load();
 const VIEW_PATH = __DIR__ . '/../views';
 
 $router = new Router();
+try {
+    $router->registerRoutesFromControllerAttributes([
+        HomeController::class
+    ]);
+} catch (ReflectionException $e) {
+}
 
 $dbConfig = new Config($_ENV);
-
-$router->get("/", [HomeController::class, 'index']);
 
 (new Application(
     $router,
