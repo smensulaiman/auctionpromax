@@ -16,7 +16,7 @@ class User extends Model
         return new User();
     }
 
-    public function findByEmail(string $email): string|array|false
+    public function findByEmail(string $email): array|false|string
     {
         try {
             $this->result = $this->db->createQueryBuilder()
