@@ -11,7 +11,7 @@
 
 declare(strict_types=1);
 
-error_reporting(E_STRICT);
+error_reporting(E_ERROR);
 ini_set('display_errors', "1");
 
 use App\Application;

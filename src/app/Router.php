@@ -29,7 +29,7 @@ class Router implements RouteInterface
 
                 foreach ($attributes as $attribute) {
                     $route = $attribute->newInstance();
-                    $this->register($route->method, $route->routePath, [$controller, $method->getName()]);
+                    $this->register($route->method->value, $route->routePath, [$controller, $method->getName()]);
                 }
             }
         }
@@ -48,7 +48,7 @@ class Router implements RouteInterface
 
     public function post(string $route, callable|array $action): self
     {
-        return $this->register('get', $route, $action);
+        return $this->register('post', $route, $action);
     }
 
     public function routes(): array
