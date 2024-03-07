@@ -16,24 +16,15 @@ ini_set('display_errors', "1");
 
 use App\Application;
 use App\Config;
-use App\Controllers\HomeController;
 use App\Router;
 
 require __DIR__ . '/../vendor/autoload.php';
+const VIEW_PATH = __DIR__ . '/../views';
 
 $dotenv = Dotenv\Dotenv::createImmutable(dirname(__DIR__));
 $dotenv->load();
 
-const VIEW_PATH = __DIR__ . '/../views';
-
 $router = new Router();
-
-try {
-    $router->registerRoutesFromControllerAttributes([
-        HomeController::class
-    ]);
-} catch (ReflectionException $e) {
-}
 
 $dbConfig = new Config($_ENV);
 
