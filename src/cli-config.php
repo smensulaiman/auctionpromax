@@ -14,12 +14,32 @@ declare(strict_types=1);
 require 'vendor/autoload.php';
 
 use Doctrine\DBAL\DriverManager;
-use Doctrine\Migrations\Configuration\Connection\ExistingConnection;
+use Doctrine\Migrations\Configuration\EntityManager\ExistingEntityManager;
 use Doctrine\Migrations\Configuration\Migration\PhpFile;
 use Doctrine\Migrations\DependencyFactory;
+use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\ORMSetup;
+use Dotenv\Dotenv;
 
-$config = new PhpFile('migrations.php'); // Or use one of the Doctrine\Migrations\Configuration\Configuration\* loaders
+$dotenv = Dotenv::createImmutable(__DIR__);
+$dotenv->load();
 
-$conn = DriverManager::getConnection(['driver' => 'pdo_sqlite', 'memory' => true]);
+$config = new PhpFile('migrations.php');
 
-return DependencyFactory::fromConnection($config, new ExistingConnection($conn));
+$connectionParams = [
+    'dbname' => $_ENV['DB_NAME'],
+    'user' => $_ENV['DB_USER'],
+    'password' => $_ENV['DB_PASS'],
+    'host' => 'db',
+    'driver' => $_ENV['DB_DRIVER'] ?? 'pdo_mysql'
+];
+
+$entityManager = new EntityManager(
+    DriverManager::getConnection($connectionParams),
+    ORMSetup::createAttributeMetadataConfiguration(
+        paths: array(__DIR__ . '/app/Entity'),
+        isDevMode: true
+    )
+);
+
+return DependencyFactory::fromEntityManager($config, new ExistingEntityManager($entityManager));

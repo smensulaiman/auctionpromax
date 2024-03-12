@@ -51,6 +51,3 @@ $userEntityList = $userQuery->getResult();
 foreach ($userEntityList as $userEntity){
     echo $userEntity->getFullName();
 }
-
-
-

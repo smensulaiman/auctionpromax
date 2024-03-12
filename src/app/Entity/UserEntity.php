@@ -24,7 +24,7 @@ class UserEntity
     #[Column]
     private string $email;
 
-    #[Column(name: 'full_name')]
+    #[Column(name: 'full_name', length: 255)]
     private string $fullName;
 
     #[Column(name: 'is_active')]

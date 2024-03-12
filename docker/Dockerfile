@@ -2,7 +2,7 @@
 FROM php:8.2-apache
 
 # Install essentials
-RUN apt update && apt install sudo nano curl wget fish git zip unzip -y
+RUN apt update && apt install sudo nano micro neofetch htop curl wget fish git zip unzip -y
 
 # Install Composer
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
