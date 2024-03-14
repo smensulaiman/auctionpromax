@@ -6,7 +6,7 @@
 </head>
 
 <body>
-<h1><?= $this->Author->full_name ?></h1>
+<h1><?= $this->Author['full_name'] ?></h1>
 </body>
 
 </html>

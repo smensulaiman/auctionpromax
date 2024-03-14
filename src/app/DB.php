@@ -2,41 +2,28 @@
 
 namespace App;
 
-use PDO;
+use Doctrine\DBAL\Connection;
+use Doctrine\DBAL\DriverManager;
 
 /**
- * @mixin PDO
+ * @mixin Connection
  */
 class DB
 {
-    private PDO $pdo;
+    private Connection $connection;
 
     /**
      * @param array $dbConfig
      */
     public function __construct(array $dbConfig)
     {
-        $defaultOptions = [
-            PDO::ATTR_EMULATE_PREPARES => false,
-            PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_OBJ
-        ];
-
-        try {
-            $this->pdo = new PDO(
-                $dbConfig['driver'] . ':host=' . $dbConfig['host'] . ';dbname=' . $dbConfig['database'],
-                $dbConfig['user'],
-                $dbConfig['pass'],
-                $dbConfig['options'] ?? $defaultOptions
-            );
-        } catch (\PDOException $exception) {
-            throw new \PDOException($exception->getMessage(), $exception->getCode());
-        }
+        $this->connection = DriverManager::getConnection($dbConfig);
     }
 
     public function __call(string $name, array $arguments)
     {
         // TODO: Implement __call() method.
-        return call_user_func_array([$this->pdo, $name], $arguments);
+        return call_user_func_array([$this->connection, $name], $arguments);
     }
 
 }

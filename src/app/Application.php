@@ -4,7 +4,10 @@ declare(strict_types=1);
 
 namespace App;
 
+use App\Controllers\CurlController;
+use App\Controllers\HomeController;
 use App\Exception\RouteNotFoundException;
+use ReflectionException;
 
 class Application
 {
@@ -21,6 +24,13 @@ class Application
         protected Config $config
     ) {
         static::$db = new DB($this->config->db);
+        try {
+            $router->registerRoutesFromControllerAttributes([
+                HomeController::class,
+                CurlController::class
+            ]);
+        } catch (ReflectionException $e) {
+        }
     }
 
     public static function db(): DB

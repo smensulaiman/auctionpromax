@@ -5,39 +5,31 @@ declare(strict_types=1);
 namespace App\Models;
 
 use App\Model;
+use Doctrine\DBAL\Exception;
 
 class User extends Model
 {
+    private string|array|false $result = "";
+
     public function create(string $email, string $name, bool $isActive = true): ?User
     {
         return new User();
     }
 
-    public function findByEmail(string $email): mixed
+    public function findByEmail(string $email): array|false|string
     {
-        $dbQuery = "SELECT * from users where email = ?";
-
         try {
-            $this->db->beginTransaction();
-
-            $preparedStatement = $this->db->prepare($dbQuery);
-            $result = $preparedStatement->execute([$email]);
-
-            $this->db->commit();
-        } catch (\Exception $e) {
+            $this->result = $this->db->createQueryBuilder()
+                ->select('full_name')
+                ->from('users')
+                ->where('email = ?')
+                ->setParameter(0, $email)
+                ->fetchAssociative();
+        } catch (Exception $e) {
             echo $e->getMessage();
-            if ($this->db->inTransaction()) {
-                $this->db->rollBack();
-            }
         }
 
-        if ($result) {
-            return $preparedStatement->fetch();
-        } else {
-            echo "not found";
-        }
-
-        return [];
+        return $this->result;
     }
 
 }

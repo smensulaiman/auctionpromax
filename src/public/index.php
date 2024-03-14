@@ -11,26 +11,30 @@
 
 declare(strict_types=1);
 
-error_reporting(E_STRICT);
+error_reporting(E_ERROR);
 ini_set('display_errors', "1");
 
 use App\Application;
 use App\Config;
-use App\Controllers\HomeController;
 use App\Router;
 
 require __DIR__ . '/../vendor/autoload.php';
+const VIEW_PATH = __DIR__ . '/../views';
 
 $dotenv = Dotenv\Dotenv::createImmutable(dirname(__DIR__));
 $dotenv->load();
 
-const VIEW_PATH = __DIR__ . '/../views';
+$data = array(
+    "name" => "sulaiman",
+    "email" => "smensulaiman007@gmail.com",
+    "password" => "sulaiman007"
+    );
+
+var_dump($data);
 
 $router = new Router();
 
 $dbConfig = new Config($_ENV);
-
-$router->get("/", [HomeController::class, 'index']);
 
 (new Application(
     $router,

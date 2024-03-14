@@ -4,11 +4,36 @@ declare(strict_types=1);
 
 namespace App;
 
+use App\Attributes\Route;
 use App\Exception\RouteNotFoundException;
+use App\Interfaces\RouteInterface;
+use ReflectionClass;
 
-class Router
+class Router implements RouteInterface
 {
     private array $routes;
+
+    /**
+     * @throws \ReflectionException
+     */
+    public function registerRoutesFromControllerAttributes(array $controllers): void
+    {
+        foreach ($controllers as $controller) {
+            $reflectionController = new ReflectionClass($controller);
+
+            foreach ($reflectionController->getMethods() as $method) {
+                $attributes = $method->getAttributes(
+                    Route::class,
+                    \ReflectionAttribute::IS_INSTANCEOF
+                );
+
+                foreach ($attributes as $attribute) {
+                    $route = $attribute->newInstance();
+                    $this->register($route->method->value, $route->routePath, [$controller, $method->getName()]);
+                }
+            }
+        }
+    }
 
     public function register(string $requestMethod, string $route, callable|array $action): self
     {
@@ -23,10 +48,11 @@ class Router
 
     public function post(string $route, callable|array $action): self
     {
-        return $this->register('get', $route, $action);
+        return $this->register('post', $route, $action);
     }
 
-    public function routes(): array{
+    public function routes(): array
+    {
         return $this->routes;
     }
 

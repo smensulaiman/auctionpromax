@@ -58,7 +58,7 @@ class View
 
     private function extractParams(array $params): void
     {
-        foreach ($this->params as $key => $value){
+        foreach ($params as $key => $value){
             $$key = $value;
         }
     }
