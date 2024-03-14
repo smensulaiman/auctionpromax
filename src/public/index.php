@@ -24,6 +24,14 @@ const VIEW_PATH = __DIR__ . '/../views';
 $dotenv = Dotenv\Dotenv::createImmutable(dirname(__DIR__));
 $dotenv->load();
 
+$data = array(
+    "name" => "sulaiman",
+    "email" => "smensulaiman007@gmail.com",
+    "password" => "sulaiman007"
+    );
+
+var_dump($data);
+
 $router = new Router();
 
 $dbConfig = new Config($_ENV);

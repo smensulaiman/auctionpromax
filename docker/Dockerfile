@@ -10,6 +10,13 @@ RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local
 # Install PHP extensions
 RUN docker-php-ext-install pdo pdo_mysql
 
+# Install and Enable Xdebug
+RUN pecl install xdebug \
+    && docker-php-ext-enable xdebug
+
+# Copy xdebugger configuration
+Copy ./xdebug.ini "${PHP_INI_DIR}/conf.d"
+
 # Expose Port
 EXPOSE 80
 

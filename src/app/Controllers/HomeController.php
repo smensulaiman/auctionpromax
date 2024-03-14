@@ -16,6 +16,7 @@ class HomeController
     #[Get(routePath: '/')]
     public function index(): View
     {
+        $name = "Solaiman";
         return View::make(
             'index',
             ['Author' => (new User())->findByEmail("sulaiman@sendajapan.com")]
