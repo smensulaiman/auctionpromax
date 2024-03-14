@@ -7,9 +7,9 @@ namespace App\services;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\GuzzleException;
 
-class EmailValidatorService
+readonly class EmailValidatorService
 {
-    public function __construct(private readonly string $baseUrl = 'https://jsonplaceholder.typicode.com/')
+    public function __construct(private string $baseUrl = 'https://jsonplaceholder.typicode.com/')
     {
     }
 
