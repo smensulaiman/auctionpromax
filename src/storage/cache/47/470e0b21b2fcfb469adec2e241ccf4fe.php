@@ -42,7 +42,10 @@ class __TwigTemplate_838d6ab7988e0c5d400433b4a6459f7d extends Template
 </head>
 
 <body>
-<h1><?= \$this->Author['full_name'] ?></h1>
+<h1>";
+        // line 9
+        echo twig_escape_filter($this->env, ($context["name"] ?? null), "html", null, true);
+        echo "</h1>
 </body>
 
 </html>";
@@ -59,9 +62,17 @@ class __TwigTemplate_838d6ab7988e0c5d400433b4a6459f7d extends Template
     /**
      * @codeCoverageIgnore
      */
+    public function isTraitable()
+    {
+        return false;
+    }
+
+    /**
+     * @codeCoverageIgnore
+     */
     public function getDebugInfo()
     {
-        return array (  37 => 1,);
+        return array (  47 => 9,  37 => 1,);
     }
 
     public function getSourceContext()
