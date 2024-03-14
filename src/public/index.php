@@ -14,33 +14,39 @@ declare(strict_types=1);
 error_reporting(E_ERROR);
 ini_set('display_errors', "1");
 
-use App\Application;
-use App\Config;
-use App\Router;
+use Slim\Factory\AppFactory;
+use Psr\Http\Message\ResponseInterface as Response;
+use Psr\Http\Message\ServerRequestInterface as Request;
+use Slim\Views\Twig;
+use Slim\Views\TwigMiddleware;
+use Twig\Error\LoaderError;
+use Twig\Extra\Intl\IntlExtension;
 
 require __DIR__ . '/../vendor/autoload.php';
 const VIEW_PATH = __DIR__ . '/../views';
+const STORAGE_PATH = __DIR__ . '/../storage';
 
 $dotenv = Dotenv\Dotenv::createImmutable(dirname(__DIR__));
 $dotenv->load();
 
-$data = array(
-    "name" => "sulaiman",
-    "email" => "smensulaiman007@gmail.com",
-    "password" => "sulaiman007"
-    );
+$app = AppFactory::create();
 
-var_dump($data);
+$app->get('/', function (Request $request, Response $response, $args) {
+    $view = Twig::fromRequest($request);
+    return $view->render($response, 'index.twig');
+});
 
-$router = new Router();
+try {
+    $twig = Twig::create(VIEW_PATH, [
+        'cache' => STORAGE_PATH . '/cache',
+        'auto_reload' => true
+    ]);
+    $twig->addExtension(new IntlExtension());
+    // Add Twig-View Middleware
+    $app->add(TwigMiddleware::create($app, $twig));
 
-$dbConfig = new Config($_ENV);
+} catch (LoaderError $e) {
+    var_dump($e);
+}
 
-(new Application(
-    $router,
-    [
-        'uri' => $_SERVER['REQUEST_URI'],
-        'method' => $_SERVER['REQUEST_METHOD']
-    ],
-    $dbConfig
-))->run();
+$app->run();

@@ -1,15 +1,15 @@
 {
     "require": {
-        "ramsey/uuid": "^4.7",
         "vlucas/phpdotenv": "^5.6",
         "doctrine/dbal": "^4.0",
         "doctrine/orm": "^3.1",
         "symfony/cache": "^7.0",
         "doctrine/migrations": "^3.7",
-        "illuminate/database": "^10.38",
-        "illuminate/events": "^10.47",
-        "symfony/mailer": "^7.0",
-        "guzzlehttp/guzzle": "^7.0"
+        "slim/slim": "4.*",
+        "slim/psr7": "^1.6",
+        "twig/twig": "^3.8",
+        "twig/intl-extra": "^3.8",
+        "slim/twig-view": "^3.3"
     },
     "autoload": {
         "psr-4": {
