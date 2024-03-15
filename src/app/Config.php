@@ -15,6 +15,7 @@ class Config
     public function __construct(array $env)
     {
         $this->config = [
+            'environment' => $env['APP_ENVIRONMENT'] ?? 'production',
             'db' => [
                 'dbname' => $env['DB_NAME'],
                 'user' => $env['DB_USER'],

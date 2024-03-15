@@ -15,7 +15,7 @@ use Twig\Error\SyntaxError;
 
 class HomeController
 {
-    public function __construct(protected UserService $userService)
+    public function __construct(protected readonly Twig $twig, protected UserService $userService)
     {
     }
 
@@ -27,6 +27,6 @@ class HomeController
     public function index(Request $request, Response $response, $args): Response
     {
         $name = $this->userService->getUser('sulaiman@sendajapan.com')[0]['fullName'];
-        return Twig::fromRequest($request)->render($response, 'index.twig', array('name' => $name));
+        return $this->twig->render($response, 'index.twig', array('name' => $name));
     }
 }
