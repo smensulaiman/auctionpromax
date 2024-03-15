@@ -20,7 +20,7 @@ This is an extended version of AuctionProJapan.
   ```bash
   composer install
   npm install
-  
+    ```
 - For development, build assets by running:`npm run dev`
 - For production, build assets with:`npm run build`
 - To continuously build assets during development and automatically rebuild on updates, run:`npm run watch`

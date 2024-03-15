@@ -20,7 +20,7 @@ $dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
 $dotenv->load();
 
 // Create Container using PHP-DI
-$container = require CONFIG_PATH . '/container.php';
+$container = require CONFIG_PATH . '/container/container.php';
 
 AppFactory::setContainer($container);
 return AppFactory::create();
