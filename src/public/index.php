@@ -14,6 +14,7 @@ declare(strict_types=1);
 error_reporting(E_ERROR);
 ini_set('display_errors', "1");
 
+use App\Controllers\CurlController;
 use App\Controllers\HomeController;
 use Slim\Factory\AppFactory;
 use Slim\Views\Twig;
@@ -31,6 +32,7 @@ $dotenv->load();
 $app = AppFactory::create();
 
 $app->get('/', [HomeController::class, 'index']);
+$app->get('/curl', [CurlController::class, 'index']);
 
 try {
     $twig = Twig::create(VIEW_PATH, [
