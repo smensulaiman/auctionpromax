@@ -11,6 +11,7 @@
 
 declare(strict_types=1);
 
+use App\Controllers\AuthController;
 use App\Controllers\CurlController;
 use App\Controllers\HomeController;
 use Slim\App;
@@ -18,4 +19,9 @@ use Slim\App;
 return function(App $app){
     $app->get('/', [HomeController::class, 'index']);
     $app->get('/curl', [CurlController::class, 'index']);
+
+    $app->get('/login', [AuthController::class, 'loginView']);
+    $app->get('/register', [AuthController::class, 'registerView']);
+    $app->post('/login', [AuthController::class, 'logIn']);
+    $app->post('/register', [AuthController::class, 'register']);
 };

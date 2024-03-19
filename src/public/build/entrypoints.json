@@ -18,6 +18,15 @@
       "css": [
         "/build/dashboard.bbad6a40.css"
       ]
+    },
+    "auth": {
+      "js": [
+        "/build/runtime.94510aa7.js",
+        "/build/auth.87b38587.js"
+      ],
+      "css": [
+        "/build/auth.0e96676f.css"
+      ]
     }
   }
 }
