@@ -27,6 +27,6 @@ class HomeController
     public function index(Request $request, Response $response, $args): Response
     {
         $name = $this->userService->getUser('sulaiman@sendajapan.com')[0]['fullName'];
-        return $this->twig->render($response, 'index.twig', array('name' => $name));
+        return $this->twig->render($response, 'dashboard.twig', array('name' => $name));
     }
 }

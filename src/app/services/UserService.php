@@ -14,13 +14,16 @@ class UserService
 
     public function getUser(string $email): array
     {
-        return $this->em->createQueryBuilder()
-            ->select('tbl_user.fullName')
-            ->from(UserEntity::class, 'tbl_user')
-            ->where('tbl_user.email = :email')
-            ->setParameter('email', $email)
-            ->getQuery()
-            ->getArrayResult();
+        return [
+            'name' => 'sulaiman'
+        ];
+        //return $this->em->createQueryBuilder()
+        //    ->select('tbl_user.fullName')
+        //    ->from(UserEntity::class, 'tbl_user')
+        //    ->where('tbl_user.email = :email')
+        //    ->setParameter('email', $email)
+        //    ->getQuery()
+        //    ->getArrayResult();
     }
 
 }
