@@ -35,8 +35,7 @@ use Doctrine\ORM\Tools\Console\EntityManagerProvider\SingleManagerProvider;
 use Symfony\Component\Console\Application;
 
 // replace with path to your own project bootstrap file
-$app = require 'bootstrap.php';
-$container = $app->getContainer();
+$container = require 'bootstrap.php';
 
 // replace with mechanism to retrieve EntityManager in your app
 $entityManager = $container->get(EntityManager::class);

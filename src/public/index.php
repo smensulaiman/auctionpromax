@@ -14,14 +14,8 @@ declare(strict_types=1);
 error_reporting(E_ERROR);
 ini_set('display_errors', "1");
 
-use Slim\Views\Twig;
-use Slim\Views\TwigMiddleware;
+use Slim\App;
 
-$app = require '../bootstrap.php';
-$container = $app->getContainer();
+$container = require '../bootstrap.php';
 
-$router = require CONFIG_PATH . '/routes/web.php';
-$router($app);
-
-$app->add(TwigMiddleware::create($app, $container->get(Twig::class)));
-$app->run();
+$container->get(App::class)->run();

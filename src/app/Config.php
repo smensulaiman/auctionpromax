@@ -2,34 +2,30 @@
 
 namespace App;
 
-/**
- * @property array|mixed|null $db
- */
 class Config
 {
-    protected array $config = [];
-
-    /**
-     * @param array $env
-     */
-    public function __construct(array $env)
+    public function __construct(private readonly array $config)
     {
-        $this->config = [
-            'environment' => $env['APP_ENVIRONMENT'] ?? 'production',
-            'db' => [
-                'dbname' => $env['DB_NAME'],
-                'user' => $env['DB_USER'],
-                'password' => $env['DB_PASS'],
-                'host' => $env['DB_HOST'],
-                'driver' => $env['DB_DRIVER'] ?? 'pdo_mysql'
-            ],
-        ];
     }
 
-    public function __get(string $name)
+    public function get(string $name, mixed $default = null): mixed
     {
-        // TODO: Implement __get() method.
-        return $this->config[$name] ?? [];
+        $path  = explode('.', $name);
+        $value = $this->config[array_shift($path)] ?? null;
+
+        if ($value === null) {
+            return $default;
+        }
+
+        foreach ($path as $key) {
+            if (! isset($value[$key])) {
+                return $default;
+            }
+
+            $value = $value[$key];
+        }
+
+        return $value;
     }
 
 }
